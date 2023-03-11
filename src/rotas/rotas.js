@@ -1,6 +1,14 @@
 const express = require('express');
-const { criarConta, listarContas, atualizarUsuario, depositarValor, deletarConta, sacarValor, mostrarSaldo, fazerTranferencia, mostrarExtrato } = require('../controladores/contas');
-const senha = require('../controladores/senha')
+const { criarConta,
+    listarContas,
+    atualizarUsuario,
+    depositarValor,
+    deletarConta,
+    sacarValor,
+    mostrarSaldo,
+    fazerTranferencia,
+    mostrarExtrato } = require('../controladores/contas');
+const senha = require('../controladores/senha');
 
 
 const roteador = express();
@@ -13,6 +21,6 @@ roteador.post('/transacoes/depositar', depositarValor);
 roteador.post('/transacoes/sacar', sacarValor);
 roteador.get('/contas/saldo', mostrarSaldo);
 roteador.post('/transacoes/transferir', fazerTranferencia);
-roteador.get('/contas/extrato', mostrarExtrato)
+roteador.get('/contas/extrato', mostrarExtrato);
 
 module.exports = roteador

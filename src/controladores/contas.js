@@ -1,59 +1,13 @@
-let { contas, saques, depositos, transferencias } = require("../bancodedados");
-const bancodedados = require('../bancodedados');
-const { format } = require('date-fns')
-
-
-const data = () => {
-    const data = new Date();
-
-    return (format(data, 'yyyy-MM-dd k:m:ss'));
-}
-
-const encontrarCPF = (cpf) => {
-    return contas.find((conta) => {
-        return conta.usuario.cpf === cpf;
-    });
-};
-
-const encontrarEmail = (email) => {
-    return contas.find((conta) => {
-        return conta.usuario.email === email;
-    });
-};
-
-const encontrarNumeroDaConta = (numeroConta) => {
-    return contas.findIndex((conta) => {
-        return conta.numero === numeroConta
-
-    })
-};
-
-const encontrarContaParaDeletar = (numeroConta) => {
-    return contas.find((conta) => {
-        return conta.numero === numeroConta;
-    });
-};
-
-let encontrarConta = (numero_conta) => {
-    return contas.find((conta) => {
-        return conta.numero === Number(numero_conta);
-    });
-
-};
-
-const validarInformaçoesUsuario = (nome, cpf, data_nascimento, telefone, email, senha) => {
-    if (!nome || !cpf || !data_nascimento || !telefone || !email || !senha) {
-        return false;
-    }
-    return true;
-};
-
-const validarSenha = (senha) => {
-    if (!senha || senha !== "123456") {
-        return false;
-    }
-    return true;
-};
+const { contas, saques, depositos, transferencias } = require("../bancodedados");
+const bancodedados = require('../bancodedados')
+const {data,
+    encontrarCPF,
+    encontrarEmail,
+    encontrarNumeroDaConta,
+    encontrarContaParaDeletar,
+    encontrarConta,
+    validarInformaçoesUsuario,
+    validarSenha } = require("../controladores/funções")
 
 let numero = 1;
 
@@ -164,11 +118,11 @@ const deletarConta = (req, res) => {
 
     if (contaEncontrada === -1) {
         return res.status(404).json("Conta bancária não encontada!");
-    }
+    };
 
     if (contaASerDeletada.saldo > 0) {
         return res.status(404).json("A conta só pode ser removida se o saldo for zero!");
-    }
+    };
 
     contas.splice(contaEncontrada, 1);
 
@@ -184,15 +138,15 @@ const depositarValor = (req, res) => {
 
     if (!numero_conta || !valor) {
         return res.status(400).json("O número da conta e o valor são obrigatórios!");
-    }
+    };
 
     if (!contaEncontrada) {
         return res.status(404).json("Conta bancária não encontada!");
-    }
+    };
 
     if (valor <= 0) {
         return res.status(404).json("O valor do depósito não pode ser menor ou igual a zero.");
-    }
+    };
 
     contaEncontrada.saldo += valor;
 
@@ -218,7 +172,7 @@ const sacarValor = (req, res) => {
 
     if (!senhaValida) {
         return res.status(403).json('Senha incorreta ou não informada.');
-    }
+    };
 
     const contaEncontrada = encontrarConta(Number(numero_conta));
 
@@ -228,7 +182,7 @@ const sacarValor = (req, res) => {
 
     if (contaEncontrada.saldo < valor) {
         return res.status(404).json(`Saque no valor de R$${valor} indisponível para saque`)
-    }
+    };
 
     contaEncontrada.saldo -= valor;
 
@@ -236,7 +190,7 @@ const sacarValor = (req, res) => {
         data: data(),
         numero_conta,
         valor
-    }
+    };
 
     saques.push(saque);
 
@@ -249,7 +203,7 @@ const fazerTranferencia = (req, res) => {
 
     if (!numero_conta_origem || !numero_conta_destino || !valor || !senha) {
         return res.status(400).json('Os são obrigatórios!');
-    }
+    };
 
     let encontrarContaDestino = encontrarConta(numero_conta_destino);
 
@@ -257,17 +211,17 @@ const fazerTranferencia = (req, res) => {
 
     if (!encontrarContaDestino || !encontrarContaOrigem) {
         return res.status(404).json('Uma ou as duas contas não foram encontradas.');
-    }
+    };
 
     const senhaValida = validarSenha(senha);
 
     if (!senhaValida) {
         return res.status(403).json('Senha incorreta ou não informada.');
-    }
+    };
 
     if (encontrarContaOrigem.saldo < valor) {
         return res.status(404).json(`Saque no valor de R$${valor} indisponível para saque`);
-    }
+    };
 
     encontrarContaOrigem.saldo -= valor;
 
@@ -298,11 +252,11 @@ const mostrarSaldo = (req, res) => {
 
     if (!validaDaSenha) {
         return res.status(403).json('Senha incorreta ou não informada.');
-    }
+    };
 
     const saldoEncontrado = {
         saldo: contaEncontrada.saldo
-    }
+    };
 
     return res.status(200).json(saldoEncontrado);
 
@@ -334,16 +288,23 @@ const mostrarExtrato = (req, res) => {
 
     if (!senhaValida) {
         return res.status(403).json('Senha incorreta ou não informada.');
-    }
+    };
 
     if (!contaEncontrada) {
         return res.status(404).json('Conta não encontrada!');
-    }
+    };
 
     return res.status(200).json({ depositos, saques, transferenciasEnviadas, transferenciasRecebidas });
 };
 
 module.exports = {
-    criarConta, listarContas, atualizarUsuario, deletarConta, depositarValor,
-    sacarValor, mostrarSaldo, fazerTranferencia, mostrarExtrato
+    criarConta,
+    listarContas,
+    atualizarUsuario,
+    deletarConta,
+    depositarValor,
+    sacarValor,
+    mostrarSaldo,
+    fazerTranferencia,
+    mostrarExtrato
 };
