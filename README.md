@@ -1,11 +1,6 @@
-![](https://i.imgur.com/xG74tOh.png)
+# Cubos Bank
 
-# Desafio Módulo 2 - Back-end
-
-Você acabou de ser contratado pela melhor empresa de tecnologia do mundo: a **CUBOS**.
-Sua primeira tarefa como desenvolvedor é criar uma API para um Banco Digital. Esse será um projeto **piloto**, ou seja, no futuro outras funcionalidades serão implementadas, portanto, dados do banco (nome, agência, etc.) serão imutáveis.
-
-Seu papel é construir uma RESTful API que permita:
+Desenvolvimento de um app de banco, utilizando API REST com funcionalidades listadas a seguir:
 
 -   Criar conta bancária
 -   Listar contas bancárias
@@ -17,7 +12,7 @@ Seu papel é construir uma RESTful API que permita:
 -   Consultar saldo da conta bancária
 -   Emitir extrato bancário
 
-**Importante: Sempre que a validação de uma requisição falhar, responda com código de erro e mensagem adequada à situação, ok?**
+**Importante: Sempre que a validação de uma requisição falhar, responda com código de erro e mensagem adequada à situação.**
 
 **Exemplo:**
 
@@ -68,8 +63,6 @@ Os dados serão persistidos em memória, no objeto existente dentro do arquivo `
 -   Evite códigos duplicados. Antes de copiar e colar, pense se não faz sentido esse pedaço de código estar centralizado numa função.
 
 ## Status Code
-
-Abaixo, listamos os possíveis ***status code*** esperados como resposta da API.
 
 Obs.: A lista abaixo é para consulta, **não** significa que todos os ***status codes*** precisam necessariamente ser utilizados.
 
@@ -577,14 +570,3 @@ Esse endpoint deverá listar as transações realizadas de uma conta específica
 }
 ```
 
-## Aulas úteis:
-
--   [Rotas, Intermediários e Controladores](https://aulas.cubos.academy/turma/c6635882-58d1-4c92-9908-f93813988b73/aulas/93a577ce-c5b3-4795-add2-d21e060d20e1)
--   [Aula API REST](https://aulas.cubos.academy/turma/c6635882-58d1-4c92-9908-f93813988b73/aulas/ec754df8-843c-4018-a9ed-bc65e424c3b2)
--   [Formatando datas com date-fns](https://aulas.cubos.academy/turma/c6635882-58d1-4c92-9908-f93813988b73/aulas/c491c422-e1ec-4e2e-b463-e7388b329a5a)
--   [Aula de objetos](https://aulas.cubos.academy/turma/c6635882-58d1-4c92-9908-f93813988b73/aulas/c2ca98f2-cff8-42c3-987b-f52181ed8c66)
--   [Aula de funções](https://aulas.cubos.academy/turma/c6635882-58d1-4c92-9908-f93813988b73/aulas/8add9839-5365-4e3c-8ec8-3d464155de91)
-
-**LEMBRE-SE**: Feito é melhor do que perfeito, mas não faça mal feito!!!
-
-###### tags: `back-end` `módulo 2` `nodeJS` `API REST` `desafio`
